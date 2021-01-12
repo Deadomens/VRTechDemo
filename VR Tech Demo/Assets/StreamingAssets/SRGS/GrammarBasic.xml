@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<grammar xmlns="http://www.w3.org/2001/06/grammar"
+         xml:lang="en-GB"
+         version="1.0" root="rootRule" tag-format="semantics/1.0">
+
+<!-- ################################################################# --> 
+
+<rule id="rootRule">
+		<one-of>
+			<item> <ruleref uri="#colour" /> </item>
+		</one-of>
+	</rule>
+  
+    <rule id="colour">
+		<one-of>
+		<item> levitate </item>
+		<item> lumos </item>
+		<item> green </item>
+		<item> yellow </item>
+		</one-of>
+	</rule>
+ 
+<!-- ################################################################# --> 
+
+</grammar>
+

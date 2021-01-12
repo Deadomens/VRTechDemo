@@ -1,0 +1,91 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<grammar xmlns="http://www.w3.org/2001/06/grammar"
+         xml:lang="en-GB"
+         version="1.0" root="rootRule" tag-format="semantics/1.0">
+
+<!-- ################################################################# --> 
+
+<!-- 	<rule id="rootRule">
+		<one-of>
+			<item> play </item>
+			<item> <ruleref uri="#direction" /> </item>
+		</one-of>
+	</rule>
+  
+    <rule id="direction">
+		<one-of>
+		<item> up </item>
+		<item> down </item>
+		<item> right </item>
+		<item> left </item>
+		</one-of>
+	</rule>
+ -->	
+ 
+<!-- ################################################################# --> 
+
+<rule id="rootRule">
+    <one-of>
+      <!-- #######      <item> <ruleref uri="#make" /> </item>
+      <item> <ruleref uri="#set" /> </item> ######## -->
+      <item> <ruleref uri="#yesOrNo" /> </item>
+    </one-of>
+  </rule>
+
+  <rule id="area_nb">
+	<one-of>    
+		<item>one</item>
+		<item>two</item>
+	</one-of>
+  </rule>
+
+  <rule id="colour">
+ 		<one-of>
+		<item>red</item>
+    <item>blue</item>
+    <item>green</item>
+		</one-of>
+		</rule>
+  
+  <rule id="make">
+    <item>make area</item>
+    <ruleref uri="#area_nb" />
+    <ruleref uri="#colour" />
+  </rule>
+
+  <rule id="set">
+    <item>set area</item>
+    <ruleref uri="#area_nb" />
+    <item>to</item>
+    <ruleref uri="#colour" />
+  </rule>
+  
+<!-- ################################################################# --> 
+  
+      <!-- The following rules recognize variants of yes and no. -->
+      <rule id="yesOrNo">
+         <one-of>
+            <item>
+              <one-of>
+                 <item>yes</item>
+                 <item>yeah</item>
+                 <item>yep</item>
+                 <item>yup</item>
+                 <item>un huh</item>
+                 <item>yay yus</item>
+              </one-of>
+              <tag>out="yes";</tag>
+            </item>
+            <item>
+              <one-of>
+                 <item>no</item>
+                 <item>nope</item>
+                 <item>nah</item>
+                 <item>uh uh</item>
+               </one-of>
+               <tag>out="no";</tag>
+            </item>
+         </one-of>
+      </rule>
+
+</grammar>
