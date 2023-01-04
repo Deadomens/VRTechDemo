@@ -15,10 +15,14 @@ public class SpeechRecognitionEngine : MonoBehaviour
     public GameObject Cube;
     private Material cubeMaterial;
 
-
+    public GameObject wand;
+    public Transform FireballSpawner;
+    public GameObject Fireball;
+    public GameObject Bang;
     public ParticleSystem ps;
     public Light PointLight;
     private float lightstep = 10;
+    public AudioSource LumosAudio;
 
     protected GrammarRecognizer grammarRecognizer;
     //protected PhraseRecognizer keywordRecognizer;
@@ -27,9 +31,8 @@ public class SpeechRecognitionEngine : MonoBehaviour
     [System.Obsolete]
     private void Start()
     {
-        ps = GetComponent<ParticleSystem>();
-        cubeMaterial = Cube.GetComponent<Renderer>().material;
         
+        cubeMaterial = Cube.GetComponent<Renderer>().material;
 
         PhraseRecognitionSystem.OnError += PhraseRecognitionSystem_OnError;
 
@@ -76,19 +79,30 @@ public class SpeechRecognitionEngine : MonoBehaviour
                 Debug.Log("You used levitate");
                 break;
             case "lumos":
-                PointLight.enabled = true;
-                
-                OnLight();
 
-                Debug.Log("You used Red");
+                if (PointLight.enabled == true)
+                {
+                    OffLight();
+                }
+                else
+                {
+                    OnLight();
+                }
+
+                word = ""; // stop this triggering again on the next frame
+                Debug.Log("You used Lumos");
                 break;
-            case "green":
-                cubeMaterial.color = Color.green;
-                Debug.Log("You used Green");
+            case "fireball":
+
+                MakeFireball();
+
+                word = ""; // stop this triggering again on the next frame
                 break;
-            case "yellow":
-                cubeMaterial.color = Color.yellow;
-                Debug.Log("You used Yellow");
+            case "bang":
+
+                MakeBang();
+
+                word = ""; // stop this triggering again on the next frame
                 break;
             default:
                 break;
@@ -96,7 +110,9 @@ public class SpeechRecognitionEngine : MonoBehaviour
         void OnLight()
     {
         ps.Play();
+            LumosAudio.Play();
         PointLight.enabled = true;
+
     }
     void OffLight()
     {
@@ -113,6 +129,23 @@ public class SpeechRecognitionEngine : MonoBehaviour
             grammarRecognizer.OnPhraseRecognized -= GrammarRecognizer_OnPhraseRecognized;
             grammarRecognizer.Stop();
         }
+    }
+
+    private void MakeFireball()
+    {
+
+        GameObject FB = Instantiate(Fireball, wand.transform.position + (wand.transform.right * 0.1f), Quaternion.identity);
+        Rigidbody RB = FB.GetComponent<Rigidbody>();
+        RB.AddForce(wand.transform.right * -10f);
+
+    }
+
+    private void MakeBang()
+    {
+
+        GameObject BG = Instantiate(Bang, wand.transform.position + (wand.transform.right * -0.3f), Quaternion.identity);
+        Rigidbody RB = BG.GetComponent<Rigidbody>();
+
     }
 
 }

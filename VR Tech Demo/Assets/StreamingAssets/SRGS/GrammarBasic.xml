@@ -15,8 +15,8 @@
 		<one-of>
 		<item> levitate </item>
 		<item> lumos </item>
-		<item> green </item>
-		<item> yellow </item>
+		<item> fireball </item>
+		<item> bang </item>
 		</one-of>
 	</rule>
  
